@@ -1,0 +1,2 @@
+[workspace]
+members=["observable", "observable_derive", "observable_test"]

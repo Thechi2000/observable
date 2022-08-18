@@ -1,2 +1,2 @@
 [workspace]
-members=["observable", "observable_derive", "observable_test"]
+members=["mutable", "mutable_derive", "mutable_test"]

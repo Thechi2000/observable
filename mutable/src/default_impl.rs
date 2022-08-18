@@ -1,4 +1,4 @@
-use crate::{Observable, SoftEq};
+use crate::{Mutable, SoftEq};
 
 fn simple_cmp<T: PartialEq + Clone>(old: &T, new: &T) -> Vec<(T, T)> {
     if old != new {
@@ -8,7 +8,7 @@ fn simple_cmp<T: PartialEq + Clone>(old: &T, new: &T) -> Vec<(T, T)> {
     }
 }
 
-impl Observable for i8 {
+impl Mutable for i8 {
     type Mutation = (i8, i8);
 
     fn cmp(&self, new: &Self) -> Vec<Self::Mutation> {
@@ -16,7 +16,7 @@ impl Observable for i8 {
     }
 }
 
-impl Observable for i16 {
+impl Mutable for i16 {
     type Mutation = (i16, i16);
 
     fn cmp(&self, new: &Self) -> Vec<Self::Mutation> {
@@ -24,7 +24,7 @@ impl Observable for i16 {
     }
 }
 
-impl Observable for i32 {
+impl Mutable for i32 {
     type Mutation = (i32, i32);
 
     fn cmp(&self, new: &Self) -> Vec<Self::Mutation> {
@@ -32,7 +32,7 @@ impl Observable for i32 {
     }
 }
 
-impl Observable for i64 {
+impl Mutable for i64 {
     type Mutation = (i64, i64);
 
     fn cmp(&self, new: &Self) -> Vec<Self::Mutation> {
@@ -40,7 +40,7 @@ impl Observable for i64 {
     }
 }
 
-impl Observable for i128 {
+impl Mutable for i128 {
     type Mutation = (i128, i128);
 
     fn cmp(&self, new: &Self) -> Vec<Self::Mutation> {
@@ -48,7 +48,7 @@ impl Observable for i128 {
     }
 }
 
-impl Observable for isize {
+impl Mutable for isize {
     type Mutation = (isize, isize);
 
     fn cmp(&self, new: &Self) -> Vec<Self::Mutation> {
@@ -56,7 +56,7 @@ impl Observable for isize {
     }
 }
 
-impl Observable for u8 {
+impl Mutable for u8 {
     type Mutation = (u8, u8);
 
     fn cmp(&self, new: &Self) -> Vec<Self::Mutation> {
@@ -64,7 +64,7 @@ impl Observable for u8 {
     }
 }
 
-impl Observable for u16 {
+impl Mutable for u16 {
     type Mutation = (u16, u16);
 
     fn cmp(&self, new: &Self) -> Vec<Self::Mutation> {
@@ -72,7 +72,7 @@ impl Observable for u16 {
     }
 }
 
-impl Observable for u32 {
+impl Mutable for u32 {
     type Mutation = (u32, u32);
 
     fn cmp(&self, new: &Self) -> Vec<Self::Mutation> {
@@ -80,7 +80,7 @@ impl Observable for u32 {
     }
 }
 
-impl Observable for u64 {
+impl Mutable for u64 {
     type Mutation = (u64, u64);
 
     fn cmp(&self, new: &Self) -> Vec<Self::Mutation> {
@@ -88,7 +88,7 @@ impl Observable for u64 {
     }
 }
 
-impl Observable for u128 {
+impl Mutable for u128 {
     type Mutation = (u128, u128);
 
     fn cmp(&self, new: &Self) -> Vec<Self::Mutation> {
@@ -96,7 +96,7 @@ impl Observable for u128 {
     }
 }
 
-impl Observable for usize {
+impl Mutable for usize {
     type Mutation = (usize, usize);
 
     fn cmp(&self, new: &Self) -> Vec<Self::Mutation> {
@@ -104,7 +104,7 @@ impl Observable for usize {
     }
 }
 
-impl Observable for bool {
+impl Mutable for bool {
     type Mutation = (bool, bool);
 
     fn cmp(&self, new: &Self) -> Vec<Self::Mutation> {
@@ -112,7 +112,7 @@ impl Observable for bool {
     }
 }
 
-impl Observable for () {
+impl Mutable for () {
     type Mutation = ();
 
     fn cmp(&self, _: &Self) -> Vec<Self::Mutation> {
@@ -120,7 +120,7 @@ impl Observable for () {
     }
 }
 
-impl Observable for String {
+impl Mutable for String {
     type Mutation = (String, String);
 
     fn cmp(&self, new: &Self) -> Vec<Self::Mutation> {
@@ -129,13 +129,13 @@ impl Observable for String {
 }
 
 #[derive(Debug, PartialEq)]
-pub enum VecMutation<T: Observable + SoftEq> {
+pub enum VecMutation<T: Mutable + SoftEq> {
     Insertion(T::Uid),
     Deletion(T::Uid),
     Update(T::Uid, T::Mutation),
 }
 
-impl<T: Observable + SoftEq + Clone> Observable for Vec<T> {
+impl<T: Mutable + SoftEq + Clone> Mutable for Vec<T> {
     type Mutation = VecMutation<T>;
 
     fn cmp(&self, new: &Self) -> Vec<Self::Mutation> {

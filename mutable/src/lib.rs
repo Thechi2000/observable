@@ -7,7 +7,7 @@ pub trait SoftEq where Self: Sized{
     fn uid(&self) -> Self::Uid;
 }
 
-pub trait Observable where Self: Sized {
+pub trait Mutable where Self: Sized {
     type Mutation;
 
     fn update(&mut self, other: Self) -> Vec<Self::Mutation>{

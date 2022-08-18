@@ -1,25 +1,25 @@
 #[cfg(test)]
 mod test {
-    use observable::default_impl::VecMutation;
-    use observable::SoftEq;
-    use observable::Observable;
-    use observable_derive::Observable;
-    use observable_derive::SoftEq;
+    use mutable::default_impl::VecMutation;
+    use mutable::SoftEq;
+    use mutable::Mutable;
+    use mutable_derive::Mutable;
+    use mutable_derive::SoftEq;
 
-    #[derive(Observable, Clone, Debug, PartialEq)]
+    #[derive(Mutable, Clone, Debug, PartialEq)]
     struct Simple {
         size: usize,
         string: String,
     }
 
-    #[derive(Observable, Clone, SoftEq, Debug, PartialEq)]
+    #[derive(Mutable, Clone, SoftEq, Debug, PartialEq)]
     struct Identifiable {
         #[softeq(uid)]
         id: String,
         value: u32,
     }
 
-    #[derive(Observable, Clone, SoftEq, Debug, PartialEq)]
+    #[derive(Mutable, Clone, SoftEq, Debug, PartialEq)]
     struct Complex{
         #[softeq(uid)]
         id: String,
